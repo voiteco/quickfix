@@ -51,6 +51,9 @@ func (state inSession) FixMsgIn(session *session, msg *Message) sessionState {
 func (state inSession) Timeout(session *session, event internal.Event) (nextState sessionState) {
 	switch event {
 	case internal.NeedHeartbeat:
+		if session.store.NextSenderMsgSeqNum() == 1 {
+			session.store.IncrNextSenderMsgSeqNum()
+		}
 		heartBt := NewMessage()
 		heartBt.Header.SetField(tagMsgType, FIXString("0"))
 		if err := session.send(heartBt); err != nil {

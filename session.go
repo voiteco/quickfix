@@ -450,6 +450,7 @@ func (s *session) handleLogon(msg *Message) error {
 		return err
 	}
 
+	s.store.IncrNextSenderMsgSeqNum()
 	return s.store.IncrNextTargetMsgSeqNum()
 }
 
