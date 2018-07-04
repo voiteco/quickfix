@@ -165,13 +165,13 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 	}
 
 	if senderSeqNumBytes, err := ioutil.ReadFile(store.senderSeqNumsFname); err == nil {
-		if senderSeqNum, err := strconv.Atoi(string(senderSeqNumBytes)); err == nil {
+		if senderSeqNum, err := strconv.Atoi(string(senderSeqNumBytes)[0:19]); err == nil {
 			store.cache.SetNextSenderMsgSeqNum(senderSeqNum)
 		}
 	}
 
 	if targetSeqNumBytes, err := ioutil.ReadFile(store.targetSeqNumsFname); err == nil {
-		if targetSeqNum, err := strconv.Atoi(string(targetSeqNumBytes)); err == nil {
+		if targetSeqNum, err := strconv.Atoi(string(targetSeqNumBytes)[0:19]); err == nil {
 			store.cache.SetNextTargetMsgSeqNum(targetSeqNum)
 		}
 	}
