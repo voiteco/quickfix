@@ -202,6 +202,14 @@ If set to N, fields that are out of order (i.e. body fields in the header, or he
 
 Defaults to Y.
 
+RejectInvalidMessage
+
+If RejectInvalidMessage is set to N, zero errors will be thrown on reception of message that fails data dictionary validation. Valid Values:
+ Y
+ N
+
+Defaults to Y.
+
 CheckLatency
 
 If set to Y, messages must be received from the counterparty within a defined number of seconds. It is useful to turn this off if a system uses localtime for it's timestamps instead of GMT. Valid Values:
@@ -242,6 +250,16 @@ SocketConnectHost<n>
 
 Alternate socket hosts for connecting to a session for failover, where n is a positive integer. (i.e.) SocketConnectHost1, SocketConnectHost2... must be consecutive and have a matching SocketConnectPort[n]. Value must be a valid IPv4 or IPv6 address or a domain name
 
+SocketTimeout
+
+Duration of timeout for TLS handshake. Only used for initiators.
+
+Example Values:
+ SocketTimeout=30s # 30 seconds
+ SocketTimeout=60m # 60 minutes
+
+Defaults to 0(means nothing timeout).
+
 SocketAcceptHost
 
 Socket host address for listening on incoming connections, only used for acceptors. By default acceptors listen on all available interfaces.
@@ -266,6 +284,31 @@ SocketMinimumTLSVersion
 
 Specify the Minimum TLS version to use when creating a secure connection. The valid choices are SSL30, TLS10, TLS11, TLS12. Defaults to TLS12.
 
+SocketUseSSL
+
+Use SSL for initiators even if client certificates are not present. If set to N or omitted, TLS will not be used if SocketPrivateKeyFile or SocketCertificateFile are not supplied.
+
+ProxyType
+
+Proxy type. Valid Values:
+ socks
+
+ProxyHost
+
+Proxy server IP address in the format of x.x.x.x or a domain name
+
+ProxyPort
+
+Proxy server port
+
+ProxyUser
+
+Proxy user
+
+ProxyPassword
+
+Proxy password
+
 PersistMessages
 
 If set to N, no messages will be persisted. This will force QuickFIX/Go to always send GapFills instead of resending messages. Use this if you know you never want to resend a message. Useful for market data streams.  Valid Values:
@@ -281,6 +324,14 @@ Directory to store logs.	Value must be valid directory for storing files, applic
 FileStorePath
 
 Directory to store sequence number and message files.  Only used with FileStoreFactory.
+
+MongoStoreConnection
+
+The MongoDB connection URL to use (see https://godoc.org/github.com/globalsign/mgo#Dial for the URL Format).  Only used with MongoStoreFactory.
+
+MongoStoreDatabase
+
+The MongoDB-specific name of the database to use.  Only used with MongoStoreFactory.
 
 SQLStoreDriver
 
